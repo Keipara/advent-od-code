@@ -41,29 +41,20 @@ def part2():
 
     array2 = arrays
 
-    #Go through each index in the item, making new arrays each time
     for i in range(len(array2[0])):
-
-        #While there's more than one item in array
         if len(array2) > 1:
             zero_arrays = []
             one_arrays = []
 
-            #Throughout the length of the data set
             for j in range(len(array2)):
-
-                #Count all the 0s and append to zero. Else, append to one
                 if array2[j][i] == '0':
                     zero_dict[i] += 1
                     zero_arrays.append(array2[j])
                 else:
                     one_arrays.append(array2[j])
 
-            #If there are more 0s, change array to zero_arrays
             if zero_dict[i] > len(array2)/2:
                 array2 = zero_arrays
-
-            #else, change array to one_arrays
             else:
                 array2 = one_arrays
 
