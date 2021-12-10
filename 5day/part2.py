@@ -13,7 +13,10 @@ lines = [[[60,28],[893,861]],[[934,945],[222,233]],[[125,246],[125,306]],[[490,2
 #
 #   return count
 
-def part1():
+# check if difference between x1/x1 and x2/y2 are equal
+#   find lower one then add 1
+
+def part2():
     lines_dict = {}
     count = 0
 
@@ -21,6 +24,8 @@ def part1():
         line = lines[i]
         first_point = line[0]
         second_point = line[1]
+
+        #Straight lines
 
         if first_point[0] == second_point[0] and first_point[1] is not second_point[1]:
             difference = abs(first_point[1] - second_point[1])
@@ -43,10 +48,10 @@ def part1():
                 if lines_dict[f'x{first_point[0]}y{changing_position}'] == 2:
                     count += 1
 
-        if first_point[1] == second_point[1] and first_point[0] is not second_point[0]:
+        elif first_point[1] == second_point[1] and first_point[0] is not second_point[0]:
             difference = abs(first_point[0] - second_point[0])
             for j in range(difference + 1):
-                changing_position = ''
+                changing_position = 0
 
                 if first_point[0] > second_point[0]:
                     changing_position = second_point[0] + j
@@ -61,6 +66,32 @@ def part1():
                 if lines_dict[f'x{changing_position}y{first_point[1]}'] == 2:
                     count += 1
 
+        #Diagonal lines
+
+        elif abs(first_point[0] - second_point[0]) == abs(first_point[1] - second_point[1]):
+            difference = abs(first_point[0] - second_point[0])
+            for j in range(difference + 1):
+                changing_position_x = 0
+                changing_position_y = 0
+
+                if first_point[0] > second_point[0]:
+                    changing_position_x = first_point[0] - j
+                else:
+                    changing_position_x = first_point[0] + j
+
+                if first_point[1] > second_point[1]:
+                    changing_position_y = first_point[1] - j
+                else:
+                    changing_position_y = first_point[1] + j
+
+                if f'x{changing_position_x}y{changing_position_y}' not in lines_dict:
+                    lines_dict[f'x{changing_position_x}y{changing_position_y}'] = 1
+                else:
+                    lines_dict[f'x{changing_position_x}y{changing_position_y}'] += 1
+
+                if lines_dict[f'x{changing_position_x}y{changing_position_y}'] == 2:
+                    count += 1
+
     print(count)
 
-part1()
+part2()
